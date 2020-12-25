@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.springframework.org/schema/data/jaxb"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+
+    <div style="margin-top:100px">
+
+        <table class="table table-hover table-dark text-center" style="width:80vw;">
+            <thead>
+            <tr>
+                <th scope="col"> Description </th>
+                <th scope="col"> Status </th>
+                <th scope="col"> Deadline </th>
+                <th scope="col"> Work Owner </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="work : ${works}">
+                <td><span th:text="${work.description}"> </span></td>
+                <td><span th:text="${work.status}"> </span></td>
+                <td><span th:text="${work.endDate}"> </span></td>
+                <td><span th:text="${work.workOwner}"> </span></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

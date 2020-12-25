@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>To Do</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../../node_modules/bootstrap/dist/css/style.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body style="padding-top: 0px; margin-top: 0px">
+<nav class="navbar navbar-light bg-light justify-content-between" style="margin-bottom: 20px">
+    <a class="navbar-brand">ToDoApp</a>
+    <form class="form-inline">
+
+        <a th:href= "@{/login}"class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+    </form>
+</nav>
+<div class="container">
+
+    <div>
+        <div>
+            <form method="get" th:action="@{/addWork}" th:object="${work}" >
+                <div class="form-row">
+                    <div class="form-group  col-md-5">
+
+                        <input type="text" id="title" placeholder="Description" autocomplete="off" class="form-control"
+                               th:field="*{description}"/>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <select th:field="*{status}" class="form-control" name="stockType">
+                            <option value="ON PROSSES">ON PROSSES</option>
+                            <option value="DELAYED">DELAYED</option>
+                            <option value="DONE">DONE</option></select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"
+                                   th:field="*{endDate}" id="date" placeholder="Date"/>
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary col-md-1" style="height:40px;"><i class="fa fa-plus" aria-hidden="true" ></i></button>
+                </div>
+            </form>
+            <table class="table table-hover table-light text-center" style="width:80vw;">
+                <thead>
+                <tr>
+                    <th scope="col"> Description </th>
+                    <th scope="col"> Status </th>
+                    <th scope="col"> Deadline </th>
+                    <th scope="col"> Work Owner </th>
+                    <th scope="col"> Delete Work </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="work : ${works}">
+                    <td><span th:text="${work.description}"> </span></td>
+                    <td><span th:text="${work.status}"> </span></td>
+                    <td><span th:text="${work.endDate}"> </span></td>
+                    <td><span th:text="${work.workOwner}"> </span></td>
+                    <td><a th:href= "@{deleteWork/__${work.id}__}" type="button" class="btn btn-danger" style="width:50px; height:40px;"><i class="fa fa-times" aria-hidden="true" style="color:whitesmoke; font-size: 24px;"></i></a></td>
+
+                </tr>
+                <!-- Modal -->
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+
+<script>
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY h:mm A'
+    });
+</script>
+
+</body>
+</html>
